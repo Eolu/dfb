@@ -1,6 +1,6 @@
 # dfb
 
-This crate wraps a HashMap with a HashMap with this type signature: 
+This crate wraps a HashMap with a wrapper with this type signature: 
 ```rust 
 HashMap<TypeId, VecDeque<Box<dyn Any>>>
 ```
