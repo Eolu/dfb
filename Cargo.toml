@@ -1,0 +1,16 @@
+[package]
+name = "dfb"
+version = "0.1.0"
+authors = ["Griffin O'Neill <gsoneill1003@gmail.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+description = """
+Dynamic-Fifo-Buffer, like AnyMap but uses a VecDeque to store values and treats 
+access as a Fifo.
+"""
+keywords = ["map", "wrapper", "dynamic", "fifo"]
+homepage = "https://github.com/Eolu/dfb"
+repository = "https://github.com/Eolu/dfb"
+categories = ["data-structures"]
+documentation = "https://docs.rs/dfb"
