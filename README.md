@@ -20,7 +20,7 @@ or
 ```rust
 Option<&mut VecDeque<DynBox<T>>> 
 ```
-The `DynBox` type is a necessary wrapper that allows a Box<dyn Any> to be transmuted to a Box<T>. It can easily be converted into a concrete Box<T> by calling DynBox::unwrap, and also implements a few useful traits for getting at its insides (Deref, DerefMut, etc).
+The `DynBox` type is a necessary wrapper that allows a `Box<dyn Any>` to be transmuted to a `Box<T>`. It can easily be converted into a concrete `Box<T>` by calling DynBox::unwrap, and also implements a few useful traits for getting at its insides (Deref, DerefMut, etc).
 
 Various trait implementations also exist that to mimic the HashMap interfaces, but most can only provide access to the true `VecDeque<Box<dyn Any>>` stored in the map.
 
