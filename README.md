@@ -1,17 +1,17 @@
 # dfb
 
-This crate wraps a HashMap with a wrapper with this type signature: 
+This crate defines and provides an interface for this type: 
 ```rust 
-HashMap<TypeId, VecDeque<Box<dyn Any>>>
+Dfb(HashMap<TypeId, VecDeque<Box<dyn Any>>>)
 ```
 Most of its basic methods are simply passthroughs to the HashMap equivalents, the more interesting ones are these:
 
-`insert`: Accepts just a value. The TypeId of its type value will be used as the key. If one or more values of this type already exist in the map, this will push a new value into the FIFO that contains them. If no value exists, this will create a new FIFO containing the inserted element.
+`insert`: Accepts just a value. The TypeId of its type will be used as the key. If one or more values of this type already exist in the map, this will push a new value into the FIFO that contains them. If no value exists, this will create a new FIFO containing the inserted element.
 `remove`: Uses a generic type rather than a key parameter to determine what to remove. Returns and removes the earliest inserted element of this type if it exists. If the element returned was the last remaining element of its type, the internal FIFO for this type is deleted.
 
 While the above two methods represent the target API of this crate, some lower-level interfaces are provided as well:
 
-`get` and `get_mut`: Returns the entire VecDeque for a particular type, if it exists. Tthe return type will be one of the following:
+`get` and `get_mut`: Returns the entire VecDeque for a particular type, if it exists. The return type will be respectively:
 ```rust
 Option<&VecDeque<DynBox<T>>> 
 ```
