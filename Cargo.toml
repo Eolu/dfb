@@ -1,6 +1,6 @@
 [package]
 name = "dfb"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Griffin O'Neill <gsoneill1003@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
