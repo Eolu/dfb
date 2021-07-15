@@ -187,6 +187,22 @@ impl Dfb
         }
     }
 
+    /// Like [Dfb::insert], but allows values of unknown type.
+    pub fn insert_dyn(&mut self, value: Box<dyn Any>)
+    {
+        let type_id = value.as_ref().type_id();
+        match self.0.get_mut(&type_id)
+        {
+            Some(vec) => vec.push_back(value),
+            None => 
+            {
+                let mut vec: VecDeque<Box<dyn Any>> = VecDeque::new();
+                vec.push_back(value);
+                self.0.insert(type_id, vec);
+            }
+        }
+    }
+
     /// Generic wrapper for [HashMap::remove]. Returns and removes the earliest 
     /// inserted element of this type if it exists. If the element returned was 
     /// the last remaining element of its type, the internal FIFO for this type 

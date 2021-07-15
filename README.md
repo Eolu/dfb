@@ -12,6 +12,8 @@ Most of its basic methods are simply passthroughs to the HashMap equivalents, th
 
 While the above two methods represent the target API of this crate, some lower-level interfaces are provided as well:
 
+`insert_dyn` works like `insert` but takes a `Box<dyn Any>` and places it in the correct location based on the TypeId of its contained type.
+
 `get` and `get_mut`: Returns the entire VecDeque for a particular type, if it exists. The return type will be respectively:
 ```rust
 Option<&VecDeque<DynBox<T>>> 
