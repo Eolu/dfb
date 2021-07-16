@@ -21,6 +21,8 @@ macro_rules! dfb
 /// An "anymap" which uses TypeIDs as keys and VecDeques of that type as values.
 #[derive(Debug)]
 pub struct Dfb(HashMap<TypeId, VecDeque<Box<dyn Any>>>);
+unsafe impl Send for Dfb {}
+unsafe impl Sync for Dfb {}
 
 impl Dfb 
 {
