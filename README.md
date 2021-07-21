@@ -14,6 +14,12 @@ While the above two methods represent the target API of this crate, some lower-l
 
 `insert_dyn` works like `insert` but takes a `Box<dyn Any>` and places it in the correct location based on the TypeId of its contained type.
 
+`remove_all` removes an entire VecDeque based on the specified type (this is the true pass-through into the HashMap equivalent `remove`). The type returned is:
+
+```rust
+Option<VecDeque<DynBox<T>>> 
+```
+
 `get` and `get_mut`: Returns the entire VecDeque for a particular type, if it exists. The return type will be respectively:
 ```rust
 Option<&VecDeque<DynBox<T>>> 

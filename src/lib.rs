@@ -226,6 +226,21 @@ impl Dfb
         }
     }
 
+    /// Generic wrapper for [HashMap::remove]. Returns and removes the entire 
+    /// VecDeque for a specific type, if it exists.
+    pub fn remove_all<T: Any>(&mut self) -> Option<VecDeque<DynBox<T>>>
+    {
+        unsafe 
+        {
+            std::mem::transmute::
+            <
+                Option<VecDeque<Box<dyn Any>>>, 
+                Option<VecDeque<DynBox<T>>>
+            >
+            (self.0.remove(&TypeId::of::<T>()))
+        }
+    }
+
     /// Wrapper for [HashMap::retain]
     #[inline]
     pub fn retain<F: FnMut(&TypeId, &mut VecDeque<Box<dyn Any>>) -> bool>(&mut self, f: F) 
