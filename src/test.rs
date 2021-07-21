@@ -53,15 +53,3 @@ fn type_fifo_test_2()
     assert_eq!(SimpleStruct2, collection2.remove::<SimpleStruct2>().unwrap());
     assert_eq!(None, collection2.remove::<SimpleStruct2>());
 }
-
-#[test]
-fn dyn_box_text()
-{
-    use crate::DynBox;
-    use std::mem::size_of;
-    assert_eq!
-    (
-        size_of::<Box<dyn Any>>(),
-        size_of::<DynBox<String>>()
-    );
-}

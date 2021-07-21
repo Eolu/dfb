@@ -131,38 +131,6 @@ impl Dfb
         self.0.entry(TypeId::of::<T>())
     }
 
-    /// Generic wrapper for [HashMap::get]. Performs a transmute under the
-    /// hood to treat a boxed trait object as a concrete type. Returns the 
-    /// entire VecDeque for type T. 
-    pub fn get<T: Any>(&self) -> Option<&VecDeque<DynBox<T>>> 
-    {
-        unsafe
-        {
-            std::mem::transmute::
-            <
-                Option<&VecDeque<Box<dyn Any>>>, 
-                Option<&VecDeque<DynBox<T>>>
-            >
-            (self.0.get(&TypeId::of::<T>()))
-        }
-    }
-
-    /// Generic wrapper for [HashMap::get_mut]. Performs a transmute under the
-    /// hood to treat a boxed trait object as a concrete type. Returns the 
-    /// entire VecDeque for type T. 
-    pub fn get_mut<T: Any>(&mut self) -> Option<&mut VecDeque<DynBox<T>>> 
-    {
-        unsafe
-        {
-            std::mem::transmute::
-            <
-                Option<&mut VecDeque<Box<dyn Any>>>, 
-                Option<&mut VecDeque<DynBox<T>>>
-            >
-            (self.0.get_mut(&TypeId::of::<T>()))
-        }
-    }
-
     /// Generic wrapper for [HashMap::get_key_value]
     #[inline]
     pub fn contains<T: Any>(&self) -> bool
@@ -211,7 +179,7 @@ impl Dfb
     /// is deleted.
     pub fn remove<T: Any>(&mut self) -> Option<T>
     {
-        match self.get_mut::<T>()
+        match self.0.get_mut(&TypeId::of::<T>())
         {
             Some(vec) => 
             {
@@ -220,24 +188,9 @@ impl Dfb
                 {
                     self.0.remove(&TypeId::of::<T>());
                 }
-                result.map(|b|*b.1)
+                result.map(|b|*b.downcast().unwrap())
             },
             None => None,
-        }
-    }
-
-    /// Generic wrapper for [HashMap::remove]. Returns and removes the entire 
-    /// VecDeque for a specific type, if it exists.
-    pub fn remove_all<T: Any>(&mut self) -> Option<VecDeque<DynBox<T>>>
-    {
-        unsafe 
-        {
-            std::mem::transmute::
-            <
-                Option<VecDeque<Box<dyn Any>>>, 
-                Option<VecDeque<DynBox<T>>>
-            >
-            (self.0.remove(&TypeId::of::<T>()))
         }
     }
 
