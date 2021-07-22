@@ -138,7 +138,7 @@ impl Dfb
     /// type already exist in the map, this will push a new value into the FIFO
     /// that contains them. If no value exists, this will create a new FIFO 
     /// containing the inserted element.
-    pub fn insert<T: Any>(&mut self, value: T) 
+    pub fn insert(&mut self, value: impl Any)
     {
         let type_id = value.type_id();
         match self.0.get_mut(&type_id)
@@ -153,7 +153,7 @@ impl Dfb
         }
     }
 
-    /// Like [Dfb::insert], but allows values of unknown type.
+    /// Like [Dfb::insert], but allows boxed values of unknown type.
     pub fn insert_dyn(&mut self, value: Box<dyn Any>)
     {
         let type_id = value.as_ref().type_id();
