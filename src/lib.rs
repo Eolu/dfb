@@ -2,13 +2,9 @@
 mod test;
 
 use core::any::*;
-use std::borrow::Borrow;
-use std::borrow::BorrowMut;
 use std::collections::HashMap;
 use std::collections::VecDeque;
 use std::iter::FromIterator;
-use std::ops::Deref;
-use std::ops::DerefMut;
 
 /// A macro to create a Dfb containing passed-in elements.
 #[macro_export]
